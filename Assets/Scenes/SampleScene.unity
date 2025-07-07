@@ -617,11 +617,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1252589251}
   - component: {fileID: 1252589250}
-  - component: {fileID: 1252589252}
   - component: {fileID: 1252589253}
+  - component: {fileID: 1252589252}
   m_Layer: 0
   m_Name: Player - Holder
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -676,10 +676,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.16348346
-  m_Height: 1.5752838
+  m_Radius: 0.18352197
+  m_Height: 1.5989094
   m_Direction: 1
-  m_Center: {x: 0, y: 0.80573404, z: 0}
+  m_Center: {x: 0, y: 0.7970104, z: 0}
 --- !u!54 &1252589253
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -705,7 +705,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &2059859631
 GameObject:
@@ -721,7 +721,7 @@ GameObject:
   - component: {fileID: 2059859632}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
