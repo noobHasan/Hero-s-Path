@@ -14745,7 +14745,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 847041921}
   moveSpeed: 5
-  isGrounded: 0
 --- !u!4 &1252589251
 Transform:
   m_ObjectHideFlags: 0
