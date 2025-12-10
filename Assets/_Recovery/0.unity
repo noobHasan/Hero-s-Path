@@ -14888,6 +14888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 1845332663}
   moveSpeed: 5
+  rotationSpeed: 10
 --- !u!4 &1252589251
 Transform:
   m_ObjectHideFlags: 0

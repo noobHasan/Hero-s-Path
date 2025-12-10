@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -6,14 +7,18 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     private float jumpForce = 6f;
 
+    private Vector3 targetMoveDir;
+    private Vector3 currentMoveDir;
+    private Vector3 smoothVelocity;
+
+    public float rotationSpeed = 10f;
+
     private Rigidbody rb;
     private bool isGrounded;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.interpolation = RigidbodyInterpolation.Interpolate;
-        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
     }
 
     void Update()
@@ -21,32 +26,27 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveZ = Input.GetAxisRaw("Vertical");
 
-        Vector3 moveDirection = new Vector3(moveX, 0, moveZ).normalized;
-
-        // Animation
-        playerAnimator.SetBool("isRunning", moveDirection.magnitude > 0);
+        targetMoveDir = new Vector3(moveX, 0, moveZ).normalized;
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             playerAnimator.SetBool("isJumping", true);
         }
-
-        // Rotate
-        if (moveDirection != Vector3.zero)
-            transform.rotation = Quaternion.LookRotation(moveDirection);
-
-        // Save movement input
-        _moveDir = moveDirection;
     }
-
-    Vector3 _moveDir;
 
     private void FixedUpdate()
     {
-        // Physics movement — smooth & stable
-        Vector3 targetPos = rb.position + _moveDir * moveSpeed * Time.fixedDeltaTime;
-        rb.MovePosition(targetPos);
+        currentMoveDir = Vector3.SmoothDamp(currentMoveDir,targetMoveDir,ref smoothVelocity,0.1f);
+        playerAnimator.SetBool("isRunning", currentMoveDir.magnitude > 0.1f);
+
+        rb.MovePosition(rb.position + currentMoveDir * moveSpeed * Time.fixedDeltaTime);
+
+        if(currentMoveDir != Vector3.zero)
+        {
+            Quaternion targetRot = Quaternion.LookRotation(currentMoveDir);
+            rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime));
+        }
     }
 
     void OnCollisionEnter(Collision collision)
