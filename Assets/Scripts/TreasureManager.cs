@@ -4,11 +4,12 @@ using System.Collections.Generic;
 public class TreasureManager : MonoBehaviour
 {
     public static TreasureManager instance;
+    public TreasureUI treasureUI;
 
     public GameObject treasurePrefab;
     public List<Transform> spawnPoints = new List<Transform>();
     public int totalTreasure;
-    private int collectedTreasures;
+    public int collectedTreasures;
     private void Awake()
     {
         instance = this;
@@ -23,6 +24,7 @@ public class TreasureManager : MonoBehaviour
         collectedTreasures++;
 
         Debug.Log("Treasure collected :" + collectedTreasures + "/" + totalTreasure);
+        treasureUI.UpdateTreasureText(collectedTreasures, totalTreasure);
     }
 
     void SpawnTreasures()
@@ -33,7 +35,7 @@ public class TreasureManager : MonoBehaviour
         {
             int randomIndex = Random.Range(0,availablePoints.Count);
             Transform spawnPoint = availablePoints[randomIndex];
-            Instantiate(treasurePrefab,spawnPoint.position,Quaternion.identity);
+            Instantiate(treasurePrefab,spawnPoint.position + Vector3.up * 0.5f,Quaternion.identity);
             availablePoints.RemoveAt(randomIndex);
         }
     }
