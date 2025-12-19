@@ -17,6 +17,7 @@ public class TreasureUI : MonoBehaviour
         if( TreasureManager.instance.collectedTreasures == TreasureManager.instance.totalTreasure)
         {
             treasureText.color = Color.green;
+            GameManager.instance.WinGame();
         }
     }
 }

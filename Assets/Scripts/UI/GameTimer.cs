@@ -53,5 +53,6 @@ public class GameTimer : MonoBehaviour
     {
         timerStarted = false;
         Debug.Log("Time Up!");
+        GameManager.instance.GameOver();
     }
 }
