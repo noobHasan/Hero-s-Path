@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public PauseManager pauseManager;
     public GameObject winPanel;
     public GameObject gameOverPanel;
 
@@ -12,6 +13,22 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+    }
+
+    void Update()
+    {
+        if(isGameOver) return;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (pauseManager.isPaused)
+            {
+                pauseManager.ResumeGame();
+            }
+            else
+            {
+                pauseManager.PauseGame();
+            }
+        }
     }
 
     public void WinGame()
